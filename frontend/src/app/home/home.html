@@ -1,0 +1,14 @@
+<section>
+      <form>
+        <input type="text" placeholder="Search for terms, techniques, or tools" #filter />
+        <button class="primary" type="button">Search</button>
+      </form>
+    </section>
+    <section class="results">
+        <mat-list>
+            @for(entry of filteredEntryList; track $index) {
+                <span matListItemTitle>{{ entry.name }}</span>
+                <span matListItemLine lines="2">{{ entry.description }}</span>
+            }
+        </mat-list>
+</section>
