@@ -1,0 +1,10 @@
+{
+   "/entry/lookup/*": {
+     "target": "http://localhost:5000",
+     "secure": false
+   },
+   "/entry/search/*": {
+    "target": "http://localhost:5000",
+    "secure": false
+   }
+ }

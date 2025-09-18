@@ -1,0 +1,16 @@
+<section>
+    <search-bar></search-bar>
+</section>
+<section class="results">
+    <mat-list>
+        @for(result of results(); track result.title) {
+            <a [routerLink]="['/entry/', result.title]">
+                <span matListItemTitle>{{ result.title }}</span>
+            </a>
+            <span matListItemLine lines="2">{{ result.description }}</span>
+        } @empty {
+            <span matlistItemTitle>No Results Found</span>
+        }
+    </mat-list>
+    
+</section>

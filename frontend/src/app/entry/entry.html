@@ -1,0 +1,17 @@
+<section>
+    <search-bar></search-bar>
+</section>
+<section class="entry">
+    <body>
+        @if (entryItem()) {
+            <h1>{{ entryItem()!.title }}</h1>
+            <h3>{{ entryItem()!.type }}</h3>
+            @if (entryItem()!.tool) {
+                <h3>Tool: {{ entryItem()!.tool }}</h3>
+            }
+            <p>{{ entryItem()!.description }}</p>
+        } @else {
+            <h3> Entry not found</h3>
+        }
+    </body>
+</section>

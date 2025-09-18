@@ -1,5 +1,7 @@
 export interface EncyclopediaEntry {
-    name: string;
+    title: string;
     type: string;
+    tool: string|null;
     description: string;
+    fundamental: number;
 }
