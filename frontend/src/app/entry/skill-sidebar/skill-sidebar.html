@@ -1,0 +1,22 @@
+<div class="flex flex-row md:flex-col">
+    <div class="max-md:w-1/2 justify-start">
+        <h5 class="text-xl max-md:font-semibold mb-2">Prerequisite Skills</h5>
+        @for(prerequisite of prerequisites(); track prerequisite.title2) {
+            <div>
+                <a class="text-blue-500" [routerLink]="['/entry/', prerequisite.title2]">{{ prerequisite.title2 | cleanTitle }}</a>
+            </div>
+        } @empty {
+            <h1>None</h1>
+        }
+    </div>
+    <div class="max-md:w-1/2 justify-start">
+        <h5 class="text-xl max-md:font-semibold md:mt-4 mb-2">Related Skills</h5>
+        @for(relatedSkill of relatedSkills(); track relatedSkill.title2) {
+            <div>
+                <a class="text-blue-500" [routerLink]="['/entry/', relatedSkill.title2]">{{ relatedSkill.title2 | cleanTitle }}</a>
+            </div>
+        } @empty {
+            <h6>None</h6>
+        }
+    </div>
+</div>

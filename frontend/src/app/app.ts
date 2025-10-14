@@ -1,6 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import {RouterModule} from '@angular/router';
+import { RouterOutlet, RouterModule} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,4 +9,5 @@ import {RouterModule} from '@angular/router';
 })
 export class App {
   protected readonly title = signal('mini-painting-encyclopedia');
+  
 }

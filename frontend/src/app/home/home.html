@@ -1,3 +1,24 @@
-<section>
-    <search-bar></search-bar>
-</section>
+<div class="py-4 bg-rose-400"></div>
+<div class="flex flex-col h-1/2 md:h-3/4 w-full">
+  <div class="flex m-auto flex-col max-md:items-center">
+    <h1 class="text-4xl mb-6 text-center">The Miniature Painting Encyclopedia</h1>
+    <form class="w-full " [formGroup]="searchForm" (submit) ="formSearch()">
+        <input class="shadow-md bg-white rounded-md w-7/8 justify-self-center max-md:h-12 max-md:text-lg md:w-120 mx-6 py-1" id="query" type="text" placeholder="Search for terms, techniques, or tools" formControlName="query">
+        <button type="submit" class="max-md:collapse text-white bg-slate-700 hover:bg-slate-900 rounded-lg mx-4 px-5 py-1">Search</button>
+    </form>
+    <div class="flex flex-col md:mt-4 md:flex-row items-center  md:justify-between">
+      <div class="mb-4">
+        <a class="text-blue-500" [routerLink]="['/intro']">New to miniature painting? Start here</a>
+      </div>
+      <div class="mb-4">
+        <a class="text-blue-500" [routerLink]="['/guide']">How to use this encyclopedia</a>
+      </div>
+      <div class="mb-4">
+        <a class="text-blue-500" [routerLink]="['/allentries']">All entries</a>
+      </div>
+      <div class="mb-4">
+        <a class="text-blue-500" [routerLink]="['/about']">About</a>
+      </div>
+    </div>
+  </div>
+</div>

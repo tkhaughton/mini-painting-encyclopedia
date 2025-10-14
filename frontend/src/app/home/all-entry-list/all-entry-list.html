@@ -1,0 +1,27 @@
+<section>
+    <search-bar></search-bar>
+</section>
+<section>
+    <div class="mt-8 md:w-2/3 mx-4 sm:mx-12" >
+        <h1 class="text-3xl mb-4">All Entries</h1>
+        <h1 class="text=xl mb-4">All entries and aliases for those entries are listed below. If the title of the article is different from its alias, the title of the page will be in parentheses. </h1>
+        @for (letter of allEntriesAlphabetized(); track $index) {
+            @if (letter.akas.length != 0) {
+                <div class="mb-2">
+                    <h1 class="text-xl mb-2">{{ letter.letter | titlecase }}  </h1>
+                    @for (aka of letter.akas; track $index) {
+                        @if (aka.aka == aka.title!.replaceAll("_", " ")) {
+                            <div>
+                                <a class="text-blue-500" [routerLink]="['/entry/', aka.title]">{{ aka.aka | titlecase }}</a>
+                            </div>
+                        } @else {
+                            <div>
+                                <a class="text-blue-500" [routerLink]="['/entry/', aka.title]">{{ aka.aka | titlecase }} ({{ aka.title! | cleanTitle}})</a>
+                            </div>
+                        }
+                    }
+                </div>
+            }
+        }
+    </div>
+</section>

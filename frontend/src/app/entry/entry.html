@@ -3,15 +3,39 @@
 </section>
 <section class="entry">
     <body>
-        @if (entryItem()) {
-            <h1>{{ entryItem()!.title }}</h1>
-            <h3>{{ entryItem()!.type }}</h3>
-            @if (entryItem()!.tool) {
-                <h3>Tool: {{ entryItem()!.tool }}</h3>
+        <div class="mt-8 mx-6 sm:mx-12" >
+            @if (entryItem()) {
+                <h1 class="text-3xl font-semibold">{{ entryItem()!.title | cleanTitle }}</h1>
+                @if (akas().length != 0) {
+                    <!-- This is set up this way to avoid having a trailing comma after the last entry in the AKA list-->
+                    <h3 class="text-lg">AKA: 
+                        @for (alias of firstAkas(); track alias.aka) {
+                            {{ alias.aka | titlecase }}, 
+                        }
+                        {{ lastAka()!.aka | titlecase }}
+                    </h3>
+                }
+                @if (entryItem()!.tool) {
+                    <h3 class="text-xl mb-2 md:mb-6">{{ entryItem()!.tool | titlecase }} {{ entryItem()!.type }}</h3>
+                } @else {
+                    <h3 class="text-xl mb-2 md:mb-6">{{ entryItem()!.type | titlecase }}</h3>
+                }
+
+                <div class="flex flex-col md:flex-row">
+                    <p class="md:w-2/3 max-md:mt-4 max-md:order-2" style="white-space: pre-line">
+                        @for (node of descriptionNodes(); track node.text) {
+                            @if (node.link) {
+                                <b (click)="getNewEntry(node.link)">{{ node.text }}</b>
+                            } @else {
+                                {{node.text}}
+                            }
+                        }
+                    </p>
+                    <skill-sidebar class="mx-4 md:mx-16 max-md:order-1"></skill-sidebar>
+                </div>
+            } @else {
+                <h3 class="text-xl"> Entry not found</h3>
             }
-            <p>{{ entryItem()!.description }}</p>
-        } @else {
-            <h3> Entry not found</h3>
-        }
+        </div>
     </body>
 </section>

@@ -10,40 +10,63 @@ from backend.db import get_db
 bp = Blueprint('entry', __name__, url_prefix='/entry')
 
 @bp.route('/lookup/<entry>', methods=(['GET']))
+
 def get_entry(entry):
+    """Gets all information for one entry in the encyclopedia.
+
+    Args:
+        entry (string): title of the entry
+
+    Returns:
+        Response: dict containing the entry converted into a JSON response
+    """
 
     db=get_db()
 
     # Get the first result matching the title
 
     results = db.execute(
-        "SELECT * FROM entries WHERE title = ?",
+        "SELECT title, type, tool, description, fundamental FROM entries WHERE title = ?",
         (entry,)).fetchone()
     
-    return jsonify(results)
+    relationships = db.execute("SELECT title2, relationship FROM relationships WHERE title1 = ? AND (relationship = 1 OR relationship = 3)",
+                               (entry,)).fetchall()
+    
+    #aka title versions still have spaces in them, so supply version of entry with spaces as argument
+    akas = db.execute("SELECT aka FROM akas WHERE title = ? AND aka != ?",
+                      (entry, entry.replace("_", " "),)).fetchall()
+    
+    #return jsonify([results])
+    return jsonify([results, relationships, akas])
 
 @bp.route('/search/<query>', methods=(['GET']))
 def search(query):
+    """Searches the aka table for any entries matching the query
 
+    Args:
+        query (string): query being searched for
+
+    Returns:
+        Response: a list of dicts matching the query converted to JSON
+    """
     db = get_db()
 
+    # Note for this later - if you wanted to add full text search on description, you could do two queries, combine them with python (sorting out unique entries) and then
+    # sort by rank after
     return jsonify(db.execute(
-        "SELECT title, type, tool, description, fundamental FROM entries WHERE title = ?",
+        "SELECT DISTINCT entries.title, type, tool, description, fundamental FROM akas LEFT JOIN entries ON akas.title = entries.title WHERE aka MATCH ? ORDER BY rank",
         (query,)).fetchall())
 
-    
-
-@bp.route('/lookuptest', methods=(['GET']))
-def lookup_test():
+@bp.route('/allentries', methods=(['GET']))
+def getAllEntries():
 
     db = get_db()
 
-    type = 'concept'
     return jsonify(db.execute(
-        "SELECT title, type, tool, description, fundamental FROM entries WHERE type = ?",
-        (type,)).fetchall())
+        "SELECT aka, title FROM akas")
+        .fetchall())
 
-
+"""
 @bp.route('/addtest', methods=(['GET', 'POST']))
 def add_test_entry():
 
@@ -84,6 +107,9 @@ def add_test_entry():
         (title,)
         ).fetchall()))
 
+"""
+
+"""
 @bp.route('/add/<entry>', methods=(['POST']))
 def add_entry():
 
@@ -92,3 +118,4 @@ def add_entry():
     db.execute(
         "INSERT INTO entries (title, aka, type, tool, description, fundamental)" 
     )
+"""

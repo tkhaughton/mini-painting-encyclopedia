@@ -1,16 +1,30 @@
 <section>
     <search-bar></search-bar>
 </section>
-<section class="results">
-    <mat-list>
+<section>
+    <div class="mt-8 md:w-2/3 mx-4 sm:mx-12" >
+        <h1 class="text-3xl">Search Results</h1>
         @for(result of results(); track result.title) {
-            <a [routerLink]="['/entry/', result.title]">
-                <span matListItemTitle>{{ result.title }}</span>
-            </a>
-            <span matListItemLine lines="2">{{ result.description }}</span>
-        } @empty {
-            <span matlistItemTitle>No Results Found</span>
+            <h1 class="text-xl mt-4">
+                <a [routerLink]="['/entry/', result.title]">{{ result.title | cleanTitle }}</a>
+            </h1>
+            <h3 class="text-slate-500">{{ result.type | titlecase }}</h3>
+            <p class="line-clamp-2">{{ result.description | cleanDescription }}</p>
+        }   @empty {
+            <h1 class="mt-2">No Results Found</h1>
         }
-    </mat-list>
-    
+                <!-- <mat-list-item lines="4">
+                    <span matListItemTitle>
+                        <a [routerLink]="['/entry/', result.title]">
+                            {{ result.title }}
+                        </a>
+                    </span>
+                    {{result.type}}
+                    <span class="my-1">
+                        {{ result.description }}
+                    </span>
+                </mat-list-item>
+
+        </mat-list> -->
+    </div>
 </section>

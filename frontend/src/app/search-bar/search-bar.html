@@ -1,4 +1,12 @@
-<form [formGroup]="searchForm" (submit) ="formSearch()">
-    <input id="query" type="text" placeholder="Search for terms, techniques, or tools" formControlName="query">
-    <button class="primary" type="submit">Search</button>
-</form>
+<div class="flex py-2 w-full bg-rose-400">
+    <a [routerLink]="['/']">
+      <header class="mx-4">
+        <h1 class="max-md:hidden text-md font-bold text-shadow-lg w-60 text-white my-1">The Miniature Painting Encyclopedia</h1>
+        <h1 class="md:hidden text-md font-bold text-shadow-lg text-white my-1">TMPE</h1>
+      </header>
+    </a>
+    <form class="w-3/4" [formGroup]="searchForm" (submit) ="formSearch()">
+        <input class="w-full md:w-60 justify-self-start shadow-md bg-white rounded-md py-1" id="query" type="text" placeholder="Search for terms, techniques, or tools" formControlName="query">
+        <button type="submit" class="max-md:hidden text-white bg-slate-700 hover:bg-slate-900 rounded-lg mx-4 px-5 py-1">Search</button>
+    </form>
+</div>
