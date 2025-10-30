@@ -6,6 +6,7 @@ import { AboutPage } from './home/about-page/about-page'
 import { Guide } from './home/guide/guide';
 import { IntroPage } from './home/intro-page/intro-page';
 import { AllEntryList } from './home/all-entry-list/all-entry-list';
+import { ErrorPage } from './error-page/error-page';
 
 export const routes: Routes = [
     {
@@ -21,7 +22,7 @@ export const routes: Routes = [
     {
         path: 'entry/:title',
         component: Entry,
-        title: "Entry"
+        title: "Entry",
     },
     {
         path: 'about',
@@ -42,5 +43,10 @@ export const routes: Routes = [
         path: 'allentries',
         component: AllEntryList,
         title: "All Entries - The Miniature Painting Encyclopedia"
+    },
+    {
+        path: '**',
+        component: ErrorPage,
+        title: "Page Not Found"
     }
 ];
